@@ -38,6 +38,7 @@ class CategoryRepository extends BaseRepository
                     ->select([
                         // DB::raw('ROW_NUMBER() OVER(ORDER BY created_at DESC) AS `no`'),
                         'id as no',
+                        'id',
                         'name',
                         'image',
                         'slug',

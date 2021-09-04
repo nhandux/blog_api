@@ -35,7 +35,8 @@ class QuestionRepository extends BaseRepository
     {
         $resuft = $this->model
                     ->select([
-                        DB::raw('ROW_NUMBER() OVER(ORDER BY created_at ASC) AS `no`'),
+                        // DB::raw('ROW_NUMBER() OVER(ORDER BY created_at ASC) AS `no`'),
+                        'id as no',
                         'id',
                         'title',
                         'slug',
@@ -50,7 +51,7 @@ class QuestionRepository extends BaseRepository
                     ->when(!empty($data['keywords']), function ($query) use ($data) {
                         $query->where('title', 'like', '%' . $data['keywords'] . '%');
                     })
-                    ->orderBy('no', $sort);
+                    ->orderBy('id', $sort);
 
                     return !empty($data['slug']) ? $resuft->first() : (!empty($data['page_size']) ? $resuft->paginate($data['page_size']) : $resuft->get());            
     }
