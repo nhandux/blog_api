@@ -31,7 +31,7 @@ class CategoryRepository extends BaseRepository
      *
      * @return mixed
      */
-    public function getCategory($data = [], $paged = 10, $orderBy = 'created_at', $sort = 'desc')
+    public function getCategory($data = [], $paged = 10, $orderBy = 'created_at', $sort = 'asc')
     {
         $resuft = $this->model
                     ->with(['parents:id,name,parent_id'])
@@ -67,7 +67,7 @@ class CategoryRepository extends BaseRepository
                     ->when(!empty($data['keywords']), function ($query) use ($data) {
                         $query->where('name', 'like', '%' . $data['keywords'] . '%');
                     })
-                    ->orderBy('no', $sort);
+                    ->orderBy('id', $sort);
 
         return !empty($data['page_size']) ? $resuft->paginate($data['page_size']) : $resuft->get();            
     }
