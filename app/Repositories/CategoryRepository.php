@@ -36,8 +36,8 @@ class CategoryRepository extends BaseRepository
         $resuft = $this->model
                     ->with(['parents:id,name,parent_id'])
                     ->select([
-                        DB::raw('ROW_NUMBER() OVER(ORDER BY created_at DESC) AS `no`'),
-                        'id',
+                        // DB::raw('ROW_NUMBER() OVER(ORDER BY created_at DESC) AS `no`'),
+                        'id as no',
                         'name',
                         'image',
                         'slug',

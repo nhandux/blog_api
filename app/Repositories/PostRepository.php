@@ -38,7 +38,8 @@ class PostRepository extends BaseRepository
         $resuft = $this->model
                     ->with(['category', 'user:id,name'])
                     ->select([
-                        DB::raw('ROW_NUMBER() OVER(ORDER BY created_at ASC) AS `no`'),
+                        // DB::raw('ROW_NUMBER() OVER(ORDER BY created_at ASC) AS `no`'),
+                        'id as no',
                         'posts.*'
                     ])
                     ->when(!empty($data['keywords']), function ($query) use ($data) {
@@ -69,7 +70,7 @@ class PostRepository extends BaseRepository
                             $query->orderBy('name', 'DESC');
                         });
                     }, function ($query) use ($sort) {
-                        $query->orderBy('no', $sort);
+                        $query->orderBy('id', $sort);
                     });
 
         $posts = !empty($data['slug']) ? $resuft->first() : (!empty($data['page_size']) ? $resuft->paginate($data['page_size']) : $resuft->get());            
