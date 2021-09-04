@@ -1,0 +1,11 @@
+@import '@coreui/coreui/dist/css/coreui.min.css';
+@import '@coreui/icons/css/free.min.css';
+.ql-editor, .ql-container{
+    height:auto !important;
+}
+.ql-editor{
+    max-height: 400px;
+}
+.table td, .table th{
+    vertical-align: middle;
+}
