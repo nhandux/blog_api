@@ -34,7 +34,6 @@ class PostRepository extends BaseRepository
      */
     public function getPost($data = [], $paged = 10, $orderBy = 'created_at', $sort = 'desc')
     {
-        sleep(1);
         $resuft = $this->model
                     ->with(['category', 'user:id,name'])
                     ->select([

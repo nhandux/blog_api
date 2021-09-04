@@ -26,7 +26,6 @@ class QuestionController extends Controller
      * @param $request
      */
     public function index (Request $request) { 
-        sleep(1);
         $question = $this->questionRepository->getQuestion($request->all());
 
         return $this->sendSuccessResponse(['question' => $question], $this->statusOk);
