@@ -8,7 +8,7 @@ use App\Models\Category;
 use App\Repositories\CategoryRepository;
 use App\Http\Requests\Api\CategoryStoreRequest;
 use App\Http\Requests\Api\CategoryUpdateRequest;
-use Nhanduc\Core\Func\Upload\FuncLocal;
+use Nhanduc\Core\Func\Upload\FuncS3;
 
 class CategorieController extends Controller
 {
@@ -51,11 +51,11 @@ class CategorieController extends Controller
         );
 
         if(!empty($category) && !empty($request->image)) {
-            $fileS3 = new FuncLocal;
+            $fileS3 = new FuncS3;
             $file = $request->image;
             $filePath = env('AWS_IMAGE_PATH') . 'categories/';
             $fileName = $fileS3->uploadFile($file, $filePath);
-            $category->image = '/storage/' .$filePath . $fileName;
+            $category->image = env('AWS_URL') . $filePath . $fileName;
             $category->save();
         }
 
@@ -95,11 +95,11 @@ class CategorieController extends Controller
         );
 
         if(!empty($category) && !empty($request->image)) {
-            $fileS3 = new FuncLocal;
+            $fileS3 = new FuncS3;
             $file = $request->image;
             $filePath = env('AWS_IMAGE_PATH') . 'categories/';
             $fileName = $fileS3->uploadFile($file, $filePath);
-            $category->image = '/storage/' .$filePath . $fileName;
+            $category->image = env('AWS_URL') . $filePath . $fileName;
             $category->save();
         }
 

@@ -8,7 +8,7 @@ use App\Models\Post;
 use App\Repositories\PostRepository;
 use App\Http\Requests\Api\PostStoreRequest;
 use App\Http\Requests\Api\PostUpdateRequest;
-use Nhanduc\Core\Func\Upload\FuncLocal;
+use Nhanduc\Core\Func\Upload\FuncS3;
 
 class PostController extends Controller
 {
@@ -53,11 +53,11 @@ class PostController extends Controller
         );
 
         if(!empty($post) && !empty($request->image)) {
-            $fileS3 = new FuncLocal;
+            $fileS3 = new FuncS3;
             $file = $request->image;
             $filePath = env('AWS_IMAGE_PATH') . 'posts/';
             $fileName = $fileS3->uploadFile($file, $filePath);
-            $post->image = '/storage/' .$filePath . $fileName;
+            $post->image = env('AWS_URL') . $filePath . $fileName;
             $post->save();
         }
 
@@ -99,11 +99,11 @@ class PostController extends Controller
         );
 
         if(!empty($post) && !empty($request->image)) {
-            $fileS3 = new FuncLocal;
+            $fileS3 = new FuncS3;
             $file = $request->image;
             $filePath = env('AWS_IMAGE_PATH') . 'posts/';
             $fileName = $fileS3->uploadFile($file, $filePath);
-            $post->image = '/storage/' .$filePath . $fileName;
+            $post->image = env('AWS_URL') . $filePath . $fileName;
             $post->save();
         }
 
